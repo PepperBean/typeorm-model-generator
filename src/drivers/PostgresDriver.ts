@@ -111,6 +111,15 @@ export default class PostgresDriver extends AbstractDriver {
                         resp.isidentity === "YES" || resp.is_identity === "YES"
                             ? true
                             : undefined;
+
+                    let generatedStrategy:
+                        | "increment"
+                        | "uuid"
+                        | "rowid"
+                        | undefined;
+                    if (generated && resp.data_type === "integer") {
+                        generatedStrategy = "increment";
+                    }
                     const defaultValue = generated
                         ? undefined
                         : PostgresDriver.ReturnDefaultValueFunction(
@@ -182,6 +191,7 @@ export default class PostgresDriver extends AbstractDriver {
 
                     ent.columns.push({
                         generated,
+                        generatedStrategy,
                         type: columnType,
                         default: defaultValue,
                         options,
