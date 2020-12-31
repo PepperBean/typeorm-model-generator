@@ -57,7 +57,13 @@ export function relationName(relation: Relation, owner?: Entity): string {
             0,
             newColumnName.toLowerCase().lastIndexOf("id")
         );
+    } else if (newColumnName.toLowerCase().endsWith("code")) {
+        newColumnName = newColumnName.substring(
+            0,
+            newColumnName.toLowerCase().lastIndexOf("code")
+        );
     }
+
     if (!Number.isNaN(parseInt(newColumnName[newColumnName.length - 1], 10))) {
         newColumnName = newColumnName.substring(0, newColumnName.length - 1);
     }
@@ -67,6 +73,7 @@ export function relationName(relation: Relation, owner?: Entity): string {
     if (isRelationToMany && pluralize) {
         newColumnName = plural(newColumnName);
     }
+
     return newColumnName;
 }
 

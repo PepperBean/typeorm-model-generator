@@ -368,10 +368,10 @@ export default class PostgresDriver extends AbstractDriver {
                 ret.tsType = "string";
                 break;
             case "json":
-                ret.tsType = "object";
+                ret.tsType = "any";
                 break;
             case "jsonb":
-                ret.tsType = "object";
+                ret.tsType = "any";
                 break;
             case "int4range":
                 ret.tsType = "string";
